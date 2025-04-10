@@ -1,0 +1,168 @@
+﻿@model ITAssetManagement1.Models.InvestmentRequest
+
+@{
+    ViewData["Title"] = "Investment Request Details";
+}
+
+<!-- Styles CSS -->
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f7fa;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .details-section {
+        margin-bottom: 20px;
+    }
+
+        .details-section label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+        }
+
+        .details-section span {
+            display: inline-block;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        table th, table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+    .btn {
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+    }
+</style>
+
+<div class="container">
+    <h2>IT INVESTMENT FORM</h2>
+
+    <div class="details-section">
+        <div>
+            <label>Region:</label>
+            <span>@Model.Region</span>
+        </div>
+        <div>
+            <label>Currency:</label>
+            <span>@Model.Currency</span>
+        </div>
+        <div>
+            <label>Location:</label>
+            <span>@Model.Location</span>
+        </div>
+        <div>
+            <label>Type of Investment:</label>
+            <span>@Model.TypeOfInvestment</span>
+        </div>
+        <div>
+            <label>Justification:</label>
+            <span>@Model.Justification</span>
+        </div>
+        <div>
+            <label>Requested Date:</label>
+            <span>@Model.RequestedDate.ToString("dd/MM/yyyy")</span>
+        </div>
+        <div>
+            <label>Due Date:</label>
+            <span>@Model.DueDate.ToString("dd/MM/yyyy")</span>
+        </div>
+        <div>
+            <label>Created By:</label>
+            <span>@(Model.CreatedBy != null ? $"{Model.CreatedBy.FirstName} {Model.CreatedBy.LastName}" : "N/A")</span>
+        </div>
+        <div>
+            <label>Creation Date:</label>
+            <span>@Model.CreationDate.ToString("dd/MM/yyyy")</span>
+        </div>
+        <div>
+            <label>Status:</label>
+            <span>@Model.Status</span>
+        </div>
+    </div>
+
+    <h3>Items</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Item</th>
+                <th>Description</th>
+                <th>Supplier</th>
+                <th>Unit Cost</th>
+                <th>Shipping</th>
+                <th>Subtotal</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Items.Count; i++)
+            {
+                var item = Model.Items[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@item.Item</td>
+                    <td>@item.Description</td>
+                    <td>@item.Supplier</td>
+                    <td>@item.UnitCost.ToString("F2")</td>
+                    <td>@item.Shipping.ToString("F2")</td>
+                    <td>@item.Subtotal.ToString("F2")</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Total.ToString("F2")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8" style="text-align: right; font-weight: bold;">Total:</td>
+                <td>@Model.Total.ToString("F2")</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div style="margin-top: 20px;">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

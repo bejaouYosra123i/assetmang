@@ -1,0 +1,174 @@
+﻿@model ITAssetManagement1.Models.Profile
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<!-- Styles CSS (unchanged) -->
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f7fa;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .tabs {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .tabs a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+            .tabs a.active {
+                color: #007bff;
+                border-bottom: 2px solid #007bff;
+            }
+
+    .card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            font-size: 14px;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+    }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 4px;
+        border: none;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
+
+<div class="container">
+    <h1>Settings</h1>
+    <div class="subtitle">Manage your account settings and preferences.</div>
+
+    <div class="tabs">
+        <a href="@Url.Action("Index", "Profile")" class="active">
+            <span>👤</span> Profile
+        </a>
+        <a href="@Url.Action("Notifications", "Profile")">
+            <span>🔔</span> Notifications
+        </a>
+        <a href="@Url.Action("Appearance", "Profile")">
+            <span>☀️</span> Appearance
+        </a>
+    </div>
+
+    <div class="card">
+        <h2>Profile Information</h2>
+        <div class="subtitle">Update your personal information and preferences.</div>
+
+        <!-- Form to update profile information -->
+        <form asp-action="Index" method="post">
+            @Html.AntiForgeryToken() <!-- Prevent CSRF attacks -->
+            <!-- Hidden field for the Profile Id -->
+            <input asp-for="Id" type="hidden" />
+
+            <!-- Hidden field for the UserId (to ensure it's submitted) -->
+            <input asp-for="UserId" type="hidden" />
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="FirstName">First Name</label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName">Last Name</label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Email field (readonly, but included as a hidden field to ensure it's submitted) -->
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control" readonly />
+                <input asp-for="Email" type="hidden" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Department">Department</label>
+                <input asp-for="Department" class="form-control" />
+                <span asp-validation-for="Department" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

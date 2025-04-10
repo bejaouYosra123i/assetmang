@@ -1,0 +1,47 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Assign Role";
+    var roleId = ViewBag.RoleId;
+    var roleName = ViewBag.RoleName;
+    var users = ViewBag.Users as List<Microsoft.AspNetCore.Identity.IdentityUser>;
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%; border: 1px solid #ff4d4d;">
+        <!-- Yazaki Logo -->
+        <div class="text-center mb-4">
+            <img src="/images/yazaki-logo.png" alt="Yazaki Logo" style="max-width: 150px;" />
+        </div>
+
+        <!-- Title -->
+        <h2 class="text-center mb-4">IT Asset Management</h2>
+
+        <!-- Subtitle -->
+        <p class="text-center text-muted mb-4">Assign Role: @roleName</p>
+
+        <!-- Form -->
+        <form asp-action="AssignRole" method="post">
+            <input type="hidden" name="roleId" value="@roleId" />
+            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+            <div class="form-group mb-3">
+                <label for="userId" class="form-label">Select User</label>
+                <select name="userId" class="form-control">
+                    <option value="">-- Select a user --</option>
+                    @foreach (var user in users)
+                    {
+                        <option value="@user.Id">@user.UserName (@user.Email)</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <button type="submit" class="btn" style="background-color: #ff4d4d; color: white;">Assign</button>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
