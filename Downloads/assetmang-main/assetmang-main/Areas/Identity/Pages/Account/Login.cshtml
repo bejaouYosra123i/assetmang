@@ -1,0 +1,50 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Connexion";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow-sm border border-danger rounded">
+                <div class="card-body text-center">
+                    <!-- Logo Yazaki -->
+                    <div class="mb-3">
+                        <img src="/images/yazaki-logo.png" alt="Yazaki Logo" style="max-width: 100px;" />
+                    </div>
+                    <h2 class="card-title">IT Asset Management</h2>
+                    <p class="text-muted">Connectez-vous avec vos identifiants Active Directory</p>
+
+                    <form id="account" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Input.Email">User Name</label>
+                            <input asp-for="Input.Email" class="form-control" placeholder="exemple@yazaki.com" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.Password">Password</label>
+                            <input asp-for="Input.Password" class="form-control" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input asp-for="Input.RememberMe" class="form-check-input" />
+                                <label asp-for="Input.RememberMe" class="form-check-label">
+                                    
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-block">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

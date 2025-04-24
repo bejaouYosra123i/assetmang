@@ -1,0 +1,54 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm p-4" style="border: 1px solid #ff4d4d;">
+        <!-- Yazaki Logo -->
+        <div class="text-center mb-4">
+            <img src="/images/yazaki-logo.png" alt="Yazaki Logo" style="max-width: 150px;" />
+        </div>
+
+        <!-- Title -->
+        <h2 class="text-center mb-4">IT Asset Management</h2>
+
+        <!-- Subtitle -->
+        <h4 class="text-center text-muted mb-4">Manage Roles</h4>
+
+        <!-- Display Error Message if Exists -->
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["Error"]
+            </div>
+        }
+
+        <!-- Create New Role Button -->
+        <div class="mb-4">
+            <a asp-action="CreateRole" class="btn" style="background-color: #ff4d4d; color: white;">Create New Role</a>
+        </div>
+
+        <!-- Roles Table -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model)
+                {
+                    <tr>
+                        <td>@role.Name</td>
+                        <td>
+                            <a asp-action="AssignRole" asp-route-roleId="@role.Id" class="btn btn-info">Assign User</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
