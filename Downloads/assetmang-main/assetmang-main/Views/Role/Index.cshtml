@@ -17,17 +17,11 @@
         <!-- Subtitle -->
         <h4 class="text-center text-muted mb-4">Manage Roles</h4>
 
-        <!-- Display Error Message if Exists -->
-        @if (TempData["Error"] != null)
-        {
-            <div class="alert alert-danger" role="alert">
-                @TempData["Error"]
-            </div>
-        }
-
         <!-- Create New Role Button -->
         <div class="mb-4">
-            <a asp-action="CreateRole" class="btn" style="background-color: #ff4d4d; color: white;">Create New Role</a>
+            <a asp-action="CreateRole" class="btn modern-btn create-btn" title="Create New Role">
+                <i class="fas fa-plus"></i>
+            </a>
         </div>
 
         <!-- Roles Table -->
@@ -44,7 +38,15 @@
                     <tr>
                         <td>@role.Name</td>
                         <td>
-                            <a asp-action="AssignRole" asp-route-roleId="@role.Id" class="btn btn-info">Assign User</a>
+                            <a asp-action="EditRole" asp-route-id="@role.Id" class="btn modern-btn edit-btn" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-action="DeleteRole" asp-route-id="@role.Id" class="btn modern-btn delete-btn" title="Delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            <a asp-action="AssignRole" asp-route-roleId="@role.Id" class="btn modern-btn assign-btn" title="Assign User">
+                                <i class="fas fa-user-plus"></i>
+                            </a>
                         </td>
                     </tr>
                 }
@@ -52,3 +54,38 @@
         </table>
     </div>
 </div>
+
+<style>
+    .modern-btn {
+        background-color: #ff4d4d;
+        color: white;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        margin-right: 8px;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+        .modern-btn:hover {
+            background-color: #e64444;
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+    .create-btn {
+        border-radius: 20px;
+        width: auto;
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+
+        .create-btn:hover {
+            background-color: #e64444;
+            transform: scale(1.05);
+        }
+</style>

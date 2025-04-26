@@ -13,22 +13,12 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Region)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
+             
             <th>
                 @Html.DisplayNameFor(model => model.TypeOfInvestment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Justification)
-            </th>
-            <th>
+            
                 @Html.DisplayNameFor(model => model.RequestedDate)
             </th>
             <th>
@@ -36,24 +26,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Observation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Item)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Supplier)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Shipping)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitCost)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
@@ -64,21 +36,11 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Region)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Currency)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.TypeOfInvestment)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Justification)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.RequestedDate)
             </td>
@@ -88,24 +50,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Observation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Shipping)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitCost)
-            </td>
+           
+           
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>

@@ -216,6 +216,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZXN0bWVudFJlcXVlc3RzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/youyo/Downloads/assetmang-main/assetmang-main/Views/PcRequests/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGNSZXF1ZXN0c1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youyo/Downloads/assetmang-main/assetmang-main/Views/PcRequests/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGNSZXF1ZXN0c1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youyo/Downloads/assetmang-main/assetmang-main/Views/PcRequests/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGNSZXF1ZXN0c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youyo/Downloads/assetmang-main/assetmang-main/Views/PcRequests/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGNSZXF1ZXN0c1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youyo/Downloads/assetmang-main/assetmang-main/Views/PcRequests/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGNSZXF1ZXN0c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/youyo/Downloads/assetmang-main/assetmang-main/Views/Profiles/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -242,6 +262,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/youyo/Downloads/assetmang-main/assetmang-main/Views/Role/CreateRole.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxDcmVhdGVSb2xlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youyo/Downloads/assetmang-main/assetmang-main/Views/Role/DeleteRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxEZWxldGVSb2xlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youyo/Downloads/assetmang-main/assetmang-main/Views/Role/EditRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxFZGl0Um9sZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/youyo/Downloads/assetmang-main/assetmang-main/Views/Role/Index.cshtml]

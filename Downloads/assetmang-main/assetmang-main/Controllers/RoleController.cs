@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ITAssetManagement1.Controllers
 {
-    
+    [Authorize]
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -62,6 +62,109 @@ namespace ITAssetManagement1.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> EditRole(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null)
+            {
+                TempData["Error"] = "Role not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(role);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditRole(string id, IdentityRole role)
+        {
+            if (id != role.Id)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Please provide a valid role name.");
+                return View(role);
+            }
+
+            var existingRole = await _roleManager.FindByIdAsync(id);
+            if (existingRole == null)
+            {
+                TempData["Error"] = "Role not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Check if the new role name already exists (and it's different from the current name)
+            if (existingRole.Name != role.Name && await _roleManager.RoleExistsAsync(role.Name))
+            {
+                ModelState.AddModelError("", "This role name already exists.");
+                return View(role);
+            }
+
+            existingRole.Name = role.Name;
+            var result = await _roleManager.UpdateAsync(existingRole);
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = $"Role {role.Name} updated successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(role);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null)
+            {
+                TempData["Error"] = "Role not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(role);
+        }
+
+        [HttpPost, ActionName("DeleteRole")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteRoleConfirmed(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null)
+            {
+                TempData["Error"] = "Role not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var result = await _roleManager.DeleteAsync(role);
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = $"Role {role.Name} deleted successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+
+            TempData["Error"] = "Failed to delete the role.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AssignRole(string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
@@ -96,7 +199,6 @@ namespace ITAssetManagement1.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Check if the user is already in the role
             if (await _userManager.IsInRoleAsync(user, role.Name))
             {
                 TempData["Error"] = $"User {user.Email} is already in the role {role.Name}.";

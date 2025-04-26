@@ -54,7 +54,7 @@ namespace ITAssetManagement1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Region,Currency,Location,TypeOfInvestment,Justification,RequestedDate,DueDate,Status,Observation,Id,Item,Description,Supplier,Shipping,UnitCost,Quantity")] InvestmentRequest investmentRequest)
+        public async Task<IActionResult> Create([Bind("Region,Currency,Location,TypeOfInvestment,Justification,RequestedDate,DueDate,Status,Observation,Id,Item,Description,Supplier,subTotal,Shipping,UnitCost,Quantity")] InvestmentRequest investmentRequest)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace ITAssetManagement1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Region,Currency,Location,TypeOfInvestment,Justification,RequestedDate,DueDate,Status,Observation,Id,Item,Description,Supplier,Shipping,UnitCost,Quantity")] InvestmentRequest investmentRequest)
+        public async Task<IActionResult> Edit(int id, [Bind("Region,Currency,Location,TypeOfInvestment,Justification,RequestedDate,DueDate,Status,Observation,Id,Item,Description,Supplier,subTotal,Shipping,UnitCost,Quantity")] InvestmentRequest investmentRequest)
         {
             if (id != investmentRequest.Id)
             {

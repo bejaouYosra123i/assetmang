@@ -1,0 +1,80 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+
+@{
+    ViewData["Title"] = "Delete Role";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow-sm p-4 elegant-card" style="max-width: 400px; width: 100%;">
+        <!-- Yazaki Logo -->
+        <div class="text-center mb-4">
+            <img src="/images/yazaki-logo.png" alt="Yazaki Logo" style="max-width: 150px;" />
+        </div>
+
+        <!-- Title -->
+        <h2 class="text-center mb-2 elegant-title">IT Asset Management</h2>
+
+        <!-- Subtitle -->
+        <p class="text-center text-muted mb-4 elegant-subtitle">Delete Role</p>
+
+        <h5 class="text-center text-danger mb-4">Are you sure you want to delete the role <strong>@Model.Name</strong>?</h5>
+
+        <form asp-action="DeleteRole" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group d-flex justify-content-between">
+                <button type="submit" class="btn elegant-btn delete-btn">Delete</button>
+                <a asp-action="Index" class="btn elegant-btn cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .elegant-card {
+        border: 1px solid #e0e0e0 !important;
+        border-radius: 15px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .elegant-title {
+        color: #333333;
+        font-weight: 600;
+        font-size: 1.8rem;
+    }
+
+    .elegant-subtitle {
+        color: #6c757d;
+        font-weight: 400;
+        font-size: 1rem;
+    }
+
+    .elegant-btn {
+        color: white;
+        border-radius: 20px;
+        padding: 10px 30px;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .delete-btn {
+        background-color: #e94e77;
+    }
+
+        .delete-btn:hover {
+            background-color: #d43f63;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+    .cancel-btn {
+        background-color: #6c757d;
+    }
+
+        .cancel-btn:hover {
+            background-color: #5a6268;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+</style>

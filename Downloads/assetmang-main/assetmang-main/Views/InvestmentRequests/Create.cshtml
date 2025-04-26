@@ -6,92 +6,6 @@
 }
 
 <h1>Create</h1>
-<style>
-    .investment-form-header {
-        background-color: #d32f2f;
-        color: white;
-        padding: 10px;
-        text-align: center;
-        font-weight: bold;
-        font-size: 1.5rem;
-        border-radius: 5px 5px 0 0;
-    }
-
-    .form-container {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 20px;
-        background-color: #f9f9f9;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-control {
-        border-radius: 5px;
-    }
-
-    .status-checkboxes {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-    }
-
-        .status-checkboxes label {
-            margin-bottom: 0;
-        }
-
-    .items-table {
-        margin-top: 20px;
-    }
-
-        .items-table th {
-            background-color: #f5f5f5;
-            text-align: center;
-        }
-
-        .items-table td {
-            vertical-align: middle;
-        }
-
-        .items-table input {
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-    .btn-add-item {
-        margin-top: 10px;
-        background-color: #d32f2f;
-        border-color: #d32f2f;
-        color: white;
-    }
-
-        .btn-add-item:hover {
-            background-color: #b71c1c;
-            border-color: #b71c1c;
-        }
-
-    .btn-primary {
-        background-color: #d32f2f;
-        border-color: #d32f2f;
-    }
-
-        .btn-primary:hover {
-            background-color: #b71c1c;
-            border-color: #b71c1c;
-        }
-
-    .btn-secondary {
-        background-color: #757575;
-        border-color: #757575;
-    }
-
-        .btn-secondary:hover {
-            background-color: #616161;
-            border-color: #616161;
-        }
-</style>
 
 <h4>InvestmentRequest</h4>
 <hr />
@@ -101,27 +15,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Region" class="control-label"></label>
-               
-                <select asp-for="Region" class="form-control">
-                    <option value="YEL">YEL</option>
-                    <option value="YNCA">YNCA</option>
-                    <option value="PC">PC</option>
-                    <!-- Add more regions from the Excel template as needed -->
-                    <option value="YEL_">YEL_</option>
-                    <option value="YNCA_">YNCA_</option>
-                    <option value="YELK">YELK</option>
-                    <option value="Aguascalientes DC">Aguascalientes DC</option>
-                    <!-- Add remaining regions if needed -->
-                </select>
+                <input asp-for="Region" class="form-control" />
                 <span asp-validation-for="Region" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Currency" class="control-label"></label>
-                <select asp-for="Currency" class="form-control">
-                    <option value="EUR">EUR</option>
-                    <option value="MXN">MXN</option>
-                    <option value="USD">USD</option>
-                </select>
+                <input asp-for="Currency" class="form-control" />
                 <span asp-validation-for="Currency" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -129,16 +28,11 @@
                 <input asp-for="Location" class="form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
-            <div class="row">
-                <div class="col-md-3 form-group">
-                    <label asp-for="TypeOfInvestment" class="control-label"></label>
-                    <div class="type-of-investment-buttons">
-                        <button type="button" class="btn btn-new btn-active" onclick="setTypeOfInvestment('New')">New</button>
-                        <button type="button" class="btn btn-refresh btn-inactive" onclick="setTypeOfInvestment('Refresh')">Refresh</button>
-                        <input type="hidden" asp-for="TypeOfInvestment" value="New" />
-                    </div>
-                    <span asp-validation-for="TypeOfInvestment" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="TypeOfInvestment" class="control-label"></label>
+                <input asp-for="TypeOfInvestment" class="form-control" />
+                <span asp-validation-for="TypeOfInvestment" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Justification" class="control-label"></label>
                 <input asp-for="Justification" class="form-control" />
@@ -169,11 +63,20 @@
                 <input asp-for="Item" class="form-control" />
                 <span asp-validation-for="Item" class="text-danger"></span>
             </div>
-            
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Supplier" class="control-label"></label>
                 <input asp-for="Supplier" class="form-control" />
                 <span asp-validation-for="Supplier" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="subTotal" class="control-label"></label>
+                <input asp-for="subTotal" class="form-control" />
+                <span asp-validation-for="subTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Shipping" class="control-label"></label>
@@ -185,55 +88,14 @@
                 <input asp-for="UnitCost" class="form-control" />
                 <span asp-validation-for="UnitCost" class="text-danger"></span>
             </div>
-                <div class="form-group">
-                    <label asp-for="subTotal" class="control-label"></label>
-                    <input asp-for="subTotal" class="form-control" />
-                    <span asp-validation-for="subTotal" class="text-danger"></span>
-                </div>
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Total" class="control-label"></label>
-                <input asp-for="Total" class="form-control" />
-                <span asp-validation-for="Total" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-                <h5 class="items-table-header">Items</h5>
-                <table class="table items-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 5%"><input type="checkbox" disabled /></th>
-                            <th style="width: 5%">NO.</th>
-                            <th style="width: 15%">Item</th>
-                            <th style="width: 15%" >Description</th>
-                            <th style="width: 15%">Supplier</th>
-                            <th style="width: 10%">Unit Cost</th>
-                            <th style="width: 10%">Shipping</th>
-                            <th style="width: 10%">SubTotal</th>
-                            <th style="width: 10%">Quantity</th>
-                            <th style="width: 10%">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody id="itemsTableBody">
-                        <tr>
-                            <td><input type="checkbox" name="Items[0].Selected" /></td>
-                            <td>1</td>
-                            <td><input type="text" name="Items[0].Item" class="form-control" value="Other" /></td>
-                            <td><input type="text" name="Items[0].Description" class="form-control" /></td>
-                            <td><input type="text" name="Items[0].Supplier" class="form-control" value="IT-HAUS" readonly /></td>
-                            <td><input type="number" name="Items[0].UnitCost" class="form-control" step="0.01" value="0.00" onchange="updateTotals(0)" /></td>
-                            <td><input type="number" name="Items[0].Shipping" class="form-control" step="0.01" value="217.50" onchange="updateTotals(0)" /></td>
-                            <td><input type="number" id="subTotal0" class="form-control" value="0.00" readonly /></td>
-                            <td><input type="number" name="Items[0].Quantity" class="form-control" value="0" onchange="updateTotals(0)" /></td>
-                            <td><input type="number" id="total0" class="form-control" value="0.00" readonly /></td>
-                        </tr>
-                    </tbody>
-                    </table>
         </form>
     </div>
 </div>

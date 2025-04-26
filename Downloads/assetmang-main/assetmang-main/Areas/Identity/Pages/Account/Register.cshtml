@@ -63,6 +63,13 @@
                 <span asp-validation-for="Input.Department" class="text-danger"></span>
             </div>
 
+            <!-- Job Title Field -->
+            <div class="form-group mb-3">
+                <label asp-for="Input.JobTitle" class="form-label">Job Title</label>
+                <input asp-for="Input.JobTitle" class="form-control" aria-required="true" placeholder="Job Title" />
+                <span asp-validation-for="Input.JobTitle" class="text-danger"></span>
+            </div>
+
             <!-- Image Upload Field -->
             <div class="form-group mb-3">
                 <label asp-for="Input.ProfileImage" class="form-label">Profile Image</label>

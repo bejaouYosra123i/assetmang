@@ -1,0 +1,107 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+
+@{
+    ViewData["Title"] = "Edit Role";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow-sm p-4 elegant-card" style="max-width: 400px; width: 100%;">
+        <!-- Yazaki Logo -->
+        <div class="text-center mb-4">
+            <img src="/images/yazaki-logo.png" alt="Yazaki Logo" style="max-width: 150px;" />
+        </div>
+
+        <!-- Title -->
+        <h2 class="text-center mb-2 elegant-title">IT Asset Management</h2>
+
+        <!-- Subtitle -->
+        <p class="text-center text-muted mb-4 elegant-subtitle">Edit Role</p>
+
+        <!-- Form -->
+        <form asp-action="EditRole" method="post">
+            <div asp-validation-summary="All" class="text-danger mb-3" role="alert"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="form-label elegant-label">Role Name</label>
+                <input asp-for="Name" class="form-control elegant-input" placeholder="Enter role name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <button type="submit" class="btn elegant-btn save-btn">Save</button>
+                <a asp-action="Index" class="btn elegant-btn cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .elegant-card {
+        border: 1px solid #e0e0e0 !important;
+        border-radius: 15px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .elegant-title {
+        color: #333333;
+        font-weight: 600;
+        font-size: 1.8rem;
+    }
+
+    .elegant-subtitle {
+        color: #6c757d;
+        font-weight: 400;
+        font-size: 1rem;
+    }
+
+    .elegant-label {
+        color: #333333;
+        font-weight: 500;
+    }
+
+    .elegant-input {
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 10px;
+        transition: border-color 0.3s ease;
+    }
+
+        .elegant-input:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.2);
+            outline: none;
+        }
+
+    .elegant-btn {
+        color: white;
+        border-radius: 20px;
+        padding: 10px 30px;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .save-btn {
+        background-color: #4a90e2;
+    }
+
+        .save-btn:hover {
+            background-color: #357abd;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+    .cancel-btn {
+        background-color: #6c757d;
+    }
+
+        .cancel-btn:hover {
+            background-color: #5a6268;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

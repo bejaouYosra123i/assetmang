@@ -1,0 +1,65 @@
+﻿@model ITAssetManagement1.Models.PcRequest
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_Layout";
+}
+
+<h1>Edit</h1>
+
+<h4>PcRequest</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PcType" class="control-label"></label>
+                <input asp-for="PcType" class="form-control" />
+                <span asp-validation-for="PcType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NeedDescription" class="control-label"></label>
+                <input asp-for="NeedDescription" class="form-control" />
+                <span asp-validation-for="NeedDescription" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="RequesterName" class="control-label"></label>
+                <input asp-for="RequesterName" class="form-control" />
+                <span asp-validation-for="RequesterName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Department" class="control-label"></label>
+                <input asp-for="Department" class="form-control" />
+                <span asp-validation-for="Department" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fonction" class="control-label"></label>
+                <input asp-for="Fonction" class="form-control" />
+                <span asp-validation-for="Fonction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestDate" class="control-label"></label>
+                <input asp-for="RequestDate" class="form-control" />
+                <span asp-validation-for="RequestDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequesterId" class="control-label"></label>
+                <select asp-for="RequesterId" class="form-control" asp-items="ViewBag.RequesterId"></select>
+                <span asp-validation-for="RequesterId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

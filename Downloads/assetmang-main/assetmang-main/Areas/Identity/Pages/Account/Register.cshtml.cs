@@ -12,19 +12,18 @@ using System.IO;
 
 namespace ITAssetManagement1.Areas.Identity.Pages.Account
 {
-    
     public class RegisterModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly ApplicationDbContext _context; // Ajout de ApplicationDbContext pour sauvegarder le profil
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            ApplicationDbContext context) // Injection de ApplicationDbContext
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -69,8 +68,12 @@ namespace ITAssetManagement1.Areas.Identity.Pages.Account
             [Display(Name = "Department")]
             public string Department { get; set; }
 
+            [Required]
+            [Display(Name = "Job Title")]
+            public string JobTitle { get; set; } // Added JobTitle to match the Profile model
+
             [Display(Name = "Profile Image")]
-            public IFormFile ProfileImage { get; set; } // Propriété pour l'image uploadée
+            public IFormFile ProfileImage { get; set; }
         }
 
         public async Task OnGetAsync(string? returnUrl = null)
@@ -92,35 +95,31 @@ namespace ITAssetManagement1.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    // Assigner un rôle par défaut à l'utilisateur (par exemple, "user")
+                    // Assign a default role to the user (e.g., "user")
                     await _userManager.AddToRoleAsync(user, "user");
 
-                    // Gérer l'upload de l'image
+                    // Handle image upload
                     string imagePath = null;
                     if (Input.ProfileImage != null && Input.ProfileImage.Length > 0)
                     {
-                        // Définir le chemin pour sauvegarder l'image (par exemple, wwwroot/images/profiles/)
                         var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profiles");
                         if (!Directory.Exists(uploadsFolder))
                         {
                             Directory.CreateDirectory(uploadsFolder);
                         }
 
-                        // Générer un nom de fichier unique pour l'image
                         var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(Input.ProfileImage.FileName);
                         var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                        // Sauvegarder l'image sur le serveur
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             await Input.ProfileImage.CopyToAsync(fileStream);
                         }
 
-                        // Stocker le chemin relatif de l'image
                         imagePath = $"/images/profiles/{uniqueFileName}";
                     }
 
-                    // Créer une entrée Profile pour le nouvel utilisateur
+                    // Create a Profile entry for the new user
                     var profile = new Profile
                     {
                         UserId = user.Id,
@@ -128,15 +127,18 @@ namespace ITAssetManagement1.Areas.Identity.Pages.Account
                         LastName = Input.LastName,
                         Email = Input.Email,
                         Department = Input.Department,
-                        ImagePath = imagePath // Sauvegarder le chemin de l'image
+                        JobTitle = Input.JobTitle, // Include JobTitle
+                        ImagePath = imagePath
                     };
 
                     _context.Profiles.Add(profile);
                     await _context.SaveChangesAsync();
 
                     TempData["SuccessMessage"] = $"User {Input.Email} added successfully!";
-                    return RedirectToAction("Index", "Role", new { area = "" });
+                    // Redirect to Profiles/Index instead of Role/Index
+                    return RedirectToAction("Index", "Profiles", new { area = "" });
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);

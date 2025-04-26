@@ -23,7 +23,7 @@
             top: 0;
             left: 0;
             height: 100%;
-            width: 50px; /* Default collapsed size */
+            width: 50px;
             background-color: #1a1a1a;
             padding-top: 20px;
             color: white;
@@ -31,7 +31,7 @@
         }
 
             .sidebar.expanded {
-                width: 250px; /* Expanded size */
+                width: 250px;
             }
 
             .sidebar .logo {
@@ -40,28 +40,28 @@
             }
 
                 .sidebar .logo img {
-                    max-width: 40px; /* Smaller logo by default */
+                    max-width: 40px;
                     transition: all 0.3s;
                 }
 
             .sidebar.expanded .logo img {
-                max-width: 150px; /* Larger logo when expanded */
+                max-width: 150px;
             }
 
             .sidebar h4 {
                 color: #ff4d4d;
                 text-align: center;
                 margin-bottom: 30px;
-                display: none; /* Hidden by default */
+                display: none;
                 transition: all 0.3s;
             }
 
             .sidebar.expanded h4 {
-                display: block; /* Show title when expanded */
+                display: block;
             }
 
             .sidebar a {
-                padding: 15px 10px; /* Adjusted padding for smaller collapsed state */
+                padding: 15px 10px;
                 display: block;
                 color: white;
                 text-decoration: none;
@@ -70,7 +70,7 @@
             }
 
             .sidebar.expanded a {
-                padding: 15px 20px; /* Normal padding when expanded */
+                padding: 15px 20px;
             }
 
             .sidebar a:hover {
@@ -80,15 +80,15 @@
 
             .sidebar a i {
                 margin-right: 10px;
-                width: 20px; /* Fixed width for icons */
+                width: 20px;
             }
 
             .sidebar a span {
-                display: none; /* Hidden by default */
+                display: none;
             }
 
             .sidebar.expanded a span {
-                display: inline; /* Show text when expanded */
+                display: inline;
             }
 
         /* Toggle button */
@@ -105,18 +105,18 @@
         }
 
         .sidebar.expanded .toggle-btn {
-            right: -40px; /* Adjust position when expanded */
+            right: -40px;
         }
 
         /* Contenu principal */
         .content {
-            margin-left: 50px; /* Default margin for collapsed sidebar */
+            margin-left: 50px;
             padding: 20px;
             transition: all 0.3s;
         }
 
             .content.expanded {
-                margin-left: 250px; /* Margin when sidebar is expanded */
+                margin-left: 250px;
             }
 
         .swal2-confirm {
@@ -128,6 +128,17 @@
             bottom: 20px;
             width: 100%;
         }
+
+        /* Nested menu for sub-items */
+        .sidebar .sub-menu {
+            display: none;
+            padding-left: 20px;
+        }
+
+            .sidebar .sub-menu a {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
     </style>
 </head>
 <body>
@@ -142,23 +153,24 @@
             <h4>IT Asset Management</h4>
             <a asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> <span>Dashboard</span></a>
             <a asp-controller="Home" asp-action="Privacy"><i class="fas fa-lock"></i> <span>Privacy</span></a>
-            <!-- Link to create a new investment request -->
-            
+            <a asp-controller="InvestmentRequests" asp-action="Create"><i class="fas fa-plus"></i> <span>Create</span></a>
+            <a asp-controller="InvestmentRequests" asp-action="Index"><i class="fas fa-list"></i> <span>Investment Requests</span></a>
 
-                <a asp-controller="InvestmentRequests" asp-action="Create"><i class="fas fa-plus"></i> <span>Create</span></a>
-                <!-- Link to view the list of investment requests -->
-                <a asp-controller="InvestmentRequests" asp-action="Index"><i class="fas fa-list"></i> <span>Investment Requests</span></a>
-
-           
-                <a asp-controller="Role" asp-action="ListRoles"><i class="fas fa-users-cog"></i> <span>Roles Management</span></a>
-                <a asp-controller="Role" asp-action="Index"><i class="fas fa-users"></i> <span>Users Management</span></a>
+            <!-- User Management Section -->
+            <a href="javascript:void(0)" onclick="toggleSubMenu(this)"><i class="fas fa-users"></i> <span>Users Management</span></a>
+            <div class="sub-menu">
+                <a asp-controller="Profiles" asp-action="Index"><i class="fas fa-address-book"></i> <span>Profiles List</span></a>
+                <a asp-controller="Role" asp-action="Index"><i class="fas fa-users-cog"></i> <span>Manage Roles</span></a>
                 <a asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus"></i> <span>Create User</span></a>
-            
+            </div>
 
+            <!-- PC Requests Management Section -->
+            <a href="javascript:void(0)" onclick="toggleSubMenu(this)"><i class="fas fa-desktop"></i> <span>PC Requests Management</span></a>
+            <div class="sub-menu">
+                <a asp-controller="PcRequests" asp-action="Index"><i class="fas fa-list-ul"></i> <span>PC Requests List</span></a>
+                <a asp-controller="PcRequests" asp-action="Create"><i class="fas fa-plus-circle"></i> <span>Create PC Request</span></a>
+            </div>
 
-
-           
-            <!-- Add Settings link -->
             <a asp-controller="Profile" asp-action="Index"><i class="fas fa-cog"></i> <span>Settings</span></a>
             <div class="logout-link">
                 <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -192,8 +204,13 @@
             const content = document.getElementById('content');
             sidebar.classList.toggle('expanded');
             content.classList.toggle('expanded');
-            // Save the sidebar state to localStorage
             localStorage.setItem('sidebarExpanded', sidebar.classList.contains('expanded'));
+        }
+
+        // Toggle sub-menu visibility
+        function toggleSubMenu(element) {
+            const subMenu = element.nextElementSibling;
+            subMenu.style.display = (subMenu.style.display === "block") ? "none" : "block";
         }
 
         // Restore sidebar state on page load
@@ -213,16 +230,57 @@
                     title: 'Success',
                     text: successMessage,
                     confirmButtonText: 'OK',
-                    confirmButtonColor: '#ff4d4d' // Yazaki red for the OK button
+                    confirmButtonColor: '#ff4d4d',
+                    backdrop: 'rgba(0,0,0,0.7)',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    },
+                    customClass: {
+                        popup: 'modern-swal-popup',
+                        title: 'modern-swal-title',
+                        content: 'modern-swal-content',
+                        confirmButton: 'modern-swal-button'
+                    }
                 });
             }
         });
     </script>
-    <!-- Charger jQuery -->
+    <style>
+        .modern-swal-popup {
+            border-radius: 15px !important;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+            border: 1px solid #ff4d4d !important;
+            padding: 20px !important;
+        }
+
+        .modern-swal-title {
+            font-size: 1.5rem !important;
+            color: #ff4d4d !important;
+            font-weight: 600 !important;
+        }
+
+        .modern-swal-content {
+            font-size: 1rem !important;
+            color: #333 !important;
+        }
+
+        .modern-swal-button {
+            border-radius: 20px !important;
+            padding: 10px 30px !important;
+            font-size: 1rem !important;
+            transition: all 0.3s ease !important;
+        }
+
+            .modern-swal-button:hover {
+                background-color: #e64444 !important;
+                transform: scale(1.05) !important;
+            }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- Charger Bootstrap -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Charger les scripts personnalisés -->
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

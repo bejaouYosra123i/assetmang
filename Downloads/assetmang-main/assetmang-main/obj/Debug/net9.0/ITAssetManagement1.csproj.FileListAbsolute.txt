@@ -893,4 +893,5 @@ C:\Users\youyo\Downloads\assetmang-main\assetmang-main\obj\Debug\net9.0\staticwe
 C:\Users\youyo\Downloads\assetmang-main\assetmang-main\obj\Debug\net9.0\ITAssetM.93D604FF.Up2Date
 C:\Users\youyo\Downloads\assetmang-main\assetmang-main\obj\Debug\net9.0\ITAssetManagement1.genruntimeconfig.cache
 C:\Users\youyo\Downloads\assetmang-main\assetmang-main\obj\Debug\net9.0\ref\ITAssetManagement1.dll
+C:\Users\youyo\Downloads\assetmang-main\assetmang-main\obj\Debug\net9.0\ITAssetManagement1.sourcelink.json
 C:\Users\youyo\Downloads\assetmang-main\assetmang-main\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

@@ -1,72 +1,179 @@
 ﻿@model IEnumerable<ITAssetManagement1.Models.Profile>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "_Layout";
+    ViewData["Title"] = "Profiles";
 }
 
-<h1>Index</h1>
+<div class="container mt-5">
+    <div class="card shadow-sm p-4 elegant-card">
+        <!-- Yazaki Logo -->
+        <div class="text-center mb-4">
+            <img src="/images/yazaki-logo.png" alt="Yazaki Logo" style="max-width: 150px;" />
+        </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JobTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <!-- Title -->
+        <h2 class="text-center mb-2 elegant-title">IT Asset Management</h2>
+
+        <!-- Subtitle -->
+        <h4 class="text-center text-muted mb-4 elegant-subtitle">User Profiles</h4>
+
+        <!-- Create New Profile Button -->
+        <div class="mb-4 text-center">
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn elegant-btn create-btn" title="Create New User">
+                <i class="fas fa-user-plus"></i> Create New User
+            </a>
+        </div>
+
+        <!-- Profiles Table -->
+        <table class="table table-hover elegant-table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                    <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.Department)</th>
+                    <th>@Html.DisplayNameFor(model => model.JobTitle)</th>
+                    <th>@Html.DisplayNameFor(model => model.ImagePath)</th>
+                    <th>@Html.DisplayNameFor(model => model.User)</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Department)</td>
+                        <td>@Html.DisplayFor(modelItem => item.JobTitle)</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.ImagePath))
+                            {
+                                <img src="@item.ImagePath" alt="Profile Image" style="max-width: 100px; border-radius: 10px;" />
+                            }
+                            else
+                            {
+                                <span class="text-muted">No Image</span>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn elegant-btn edit-btn" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn elegant-btn details-btn" title="Details">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn elegant-btn delete-btn" title="Delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .elegant-card {
+        border: 1px solid #e0e0e0 !important;
+        border-radius: 15px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .elegant-title {
+        color: #333333;
+        font-weight: 600;
+        font-size: 1.8rem;
+    }
+
+    .elegant-subtitle {
+        color: #6c757d;
+        font-weight: 400;
+        font-size: 1.2rem;
+    }
+
+    .elegant-table {
+        border: none;
+    }
+
+    .elegant-table th {
+        background-color: #f8f9fa;
+        color: #333333;
+        font-weight: 500;
+        border: none;
+        padding: 12px;
+    }
+
+    .elegant-table td {
+        vertical-align: middle;
+        color: #333333;
+        border: none;
+        padding: 12px;
+    }
+
+    .elegant-table tr:hover {
+        background-color: #f1f3f5;
+    }
+
+    .elegant-btn {
+        color: white;
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        margin-right: 8px;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .create-btn {
+        background-color: #ff4d4d;
+        border-radius: 20px;
+        width: auto;
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+
+    .create-btn:hover {
+        background-color: #e64444;
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .edit-btn {
+        background-color: #4a90e2;
+    }
+
+    .edit-btn:hover {
+        background-color: #357abd;
+        transform: scale(1.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .details-btn {
+        background-color: #6c757d;
+    }
+
+    .details-btn:hover {
+        background-color: #5a6268;
+        transform: scale(1.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .delete-btn {
+        background-color: #e94e77;
+    }
+
+    .delete-btn:hover {
+        background-color: #d43f63;
+        transform: scale(1.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+</style>

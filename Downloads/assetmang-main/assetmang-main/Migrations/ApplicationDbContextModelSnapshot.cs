@@ -22,6 +22,58 @@ namespace ITAssetManagement1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ITAssetManagement1.Models.ITRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Fonction")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RequestType")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("RequesterId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RequesterId1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RequesterName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequesterId");
+
+                    b.HasIndex("RequesterId1");
+
+                    b.ToTable("ITRequests");
+
+                    b.HasDiscriminator<string>("RequestType").HasValue("ITRequest");
+
+                    b.UseTphMappingStrategy();
+                });
+
             modelBuilder.Entity("ITAssetManagement1.Models.InvestmentItem", b =>
                 {
                     b.Property<int>("Id")
@@ -112,6 +164,39 @@ namespace ITAssetManagement1.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Profiles");
+                });
+
+            modelBuilder.Entity("ITAssetManagement1.Models.Validation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ITRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Remark")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Signature")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ITRequestId");
+
+                    b.ToTable("Validations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -316,6 +401,23 @@ namespace ITAssetManagement1.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ITAssetManagement1.Models.PcRequest", b =>
+                {
+                    b.HasBaseType("ITAssetManagement1.Models.ITRequest");
+
+                    b.Property<string>("NeedDescription")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("PcType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasDiscriminator().HasValue("PcRequest");
+                });
+
             modelBuilder.Entity("ITAssetManagement1.Models.InvestmentRequest", b =>
                 {
                     b.HasBaseType("ITAssetManagement1.Models.InvestmentItem");
@@ -362,6 +464,23 @@ namespace ITAssetManagement1.Migrations
                     b.HasDiscriminator().HasValue("InvestmentRequest");
                 });
 
+            modelBuilder.Entity("ITAssetManagement1.Models.ITRequest", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("RequesterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Requester")
+                        .WithMany()
+                        .HasForeignKey("RequesterId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Requester");
+                });
+
             modelBuilder.Entity("ITAssetManagement1.Models.InvestmentItem", b =>
                 {
                     b.HasOne("ITAssetManagement1.Models.InvestmentItem", null)
@@ -378,6 +497,17 @@ namespace ITAssetManagement1.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ITAssetManagement1.Models.Validation", b =>
+                {
+                    b.HasOne("ITAssetManagement1.Models.ITRequest", "ITRequest")
+                        .WithMany("Validations")
+                        .HasForeignKey("ITRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ITRequest");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -436,6 +566,11 @@ namespace ITAssetManagement1.Migrations
                     b.HasOne("ITAssetManagement1.Models.Profile", null)
                         .WithMany("InvestmentRequests")
                         .HasForeignKey("ProfileId");
+                });
+
+            modelBuilder.Entity("ITAssetManagement1.Models.ITRequest", b =>
+                {
+                    b.Navigation("Validations");
                 });
 
             modelBuilder.Entity("ITAssetManagement1.Models.InvestmentItem", b =>
